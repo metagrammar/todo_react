@@ -118,11 +118,11 @@ class App extends Component {
     }
   };
 
-  handleToggleTodo = e => {
-    console.log(e.id);
+  handleToggleTodo = id => {
+    console.log(id);
     const todoCopy = [...this.state.todo];
     const idOfItemToToggle = todoCopy.findIndex(
-      item => item.id.toString() === e.id
+      item => item.id === id
     );
     console.log(idOfItemToToggle);
     todoCopy[idOfItemToToggle].isDone = !todoCopy[idOfItemToToggle].isDone;

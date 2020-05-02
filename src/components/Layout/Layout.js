@@ -11,7 +11,7 @@ const Layout = props => {
       date={props.date}
       deleteTodo={props.deleteTodo}
       idTodo={item.id}
-      toggleTodo={props.toggleTodo}
+      toggleTodo={() => props.toggleTodo(item.id)}
       isDoneTodo={item.isDone}
     />
   ));

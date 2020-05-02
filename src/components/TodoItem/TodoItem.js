@@ -29,13 +29,13 @@ const TodoItem = props => {
           id={props.idTodo}
           onClick={() => props.deleteTodo(props.idTodo)}
         >
-          <Delete style={{ fontSize: 12 }} id={props.idTodo} />
+          <Delete style={{ fontSize: 12 }}/>
         </div>
       </div>
       <label className={classes.checkboxContainer}>
         <div className={classes.todoText}>{props.todoContent}</div>
-        <input type="checkbox" id={props.idTodo} />
-        <span className={todoCheck} onClick={e => props.toggleTodo(e)} id={props.idTodo}/>
+        <input type="checkbox"/>
+        <span className={todoCheck} onClick={e => props.toggleTodo(e)}/>
       </label>
     </div>
   );
