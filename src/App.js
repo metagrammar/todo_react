@@ -52,8 +52,15 @@ class App extends Component {
       // date: this.state.todoDate,
       time: this.state.todoTime
     };
+
+    if(this.state.todoText !== ''){ // Tony: if statement to alert empty text
     todoCopy.push(todoItem);
     this.setState({ todo: todoCopy });
+    this.handleModalTodo(); // Tony: closes the TodoInput Modal page on submit
+    } else {
+      alert('Please write what you would like to do')
+    }
+    this.setState(prev => prev.todoText = '')
     e.preventDefault();
   };
 
