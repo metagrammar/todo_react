@@ -14,7 +14,6 @@ const TodoItem = props => {
     todoBox = [classes.todoBox, classes.todoDone].join(" ");
     todoCheck = [classes.checkmark, classes.toggle].join(" ");
   }
-    console.log(props.idTodo)
   return (
     <div className={todoBox}>
       <div className={classes.todoTime}>
@@ -35,7 +34,7 @@ const TodoItem = props => {
       <label className={classes.checkboxContainer}>
         <div className={classes.todoText}>{props.todoContent}</div>
         <input type="checkbox"/>
-        <span className={todoCheck} onClick={e => props.toggleTodo(e)}/>
+        <span className={todoCheck} onClick={props.toggleTodo}/>
       </label>
     </div>
   );

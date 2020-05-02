@@ -54,6 +54,8 @@ class App extends Component {
     };
     todoCopy.push(todoItem);
     this.setState({ todo: todoCopy });
+
+    this.setState(prev => prev.todoText = '');
     e.preventDefault();
   };
 
