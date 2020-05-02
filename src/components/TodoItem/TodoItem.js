@@ -14,6 +14,7 @@ const TodoItem = props => {
     todoBox = [classes.todoBox, classes.todoDone].join(" ");
     todoCheck = [classes.checkmark, classes.toggle].join(" ");
   }
+    console.log(props.idTodo)
   return (
     <div className={todoBox}>
       <div className={classes.todoTime}>
@@ -26,7 +27,7 @@ const TodoItem = props => {
           className={classes.trashIcon}
           style={{ justifySelf: "end" }}
           id={props.idTodo}
-          onClick={e => props.deleteTodo(e)}
+          onClick={() => props.deleteTodo(props.idTodo)}
         >
           <Delete style={{ fontSize: 12 }} id={props.idTodo} />
         </div>

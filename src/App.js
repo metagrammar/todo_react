@@ -77,13 +77,10 @@ class App extends Component {
     this.setState({ headerColour: headerColourCopy });
   };
 
-  handleDeleteTodo = e => {
-    console.log("id: " + e.target.id);
-    console.log(typeof e.target.id);
-    console.log(e.currentTarget);
-
+  handleDeleteTodo = id => {
+    console.log(id);
     this.setState({
-      todo: this.state.todo.filter(item => item.id.toString() !== e.target.id)
+      todo: this.state.todo.filter(item => item.id !== id)
     });
   };
 
@@ -122,12 +119,10 @@ class App extends Component {
   };
 
   handleToggleTodo = e => {
-    console.log(this.state.todo);
-    console.log(e.target.id);
+    console.log(e.id);
     const todoCopy = [...this.state.todo];
-    const pick = todoCopy[1]
     const idOfItemToToggle = todoCopy.findIndex(
-      item => item.id.toString() === e.target.id
+      item => item.id.toString() === e.id
     );
     console.log(idOfItemToToggle);
     todoCopy[idOfItemToToggle].isDone = !todoCopy[idOfItemToToggle].isDone;

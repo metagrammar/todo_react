@@ -5,6 +5,7 @@ import classes from "./Layout.module.css";
 const Layout = props => {
   const todoItems = props.todoItems.map(item => (
     <TodoItem
+      key={item.id}
       todoContent={item.content}
       time={item.time}
       date={props.date}
