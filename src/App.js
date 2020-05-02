@@ -3,46 +3,89 @@ import Navbar from "./components/Navbar/Navbar";
 import Modal from "./components/Modal/Modal";
 import TodoInput from "./components/Modal/TodoInput/TodoInput";
 import ColorPicker from "./components/Modal/ColorPicker/ColorPicker";
+import Layout from "./components/Layout/Layout";
 
 class App extends Component {
   state = {
-    todoText: '',
-    todoDate: '',
-    todoTime: '',
+    todoText: "",
+    todoDate: "",
+    todoTime: "",
     todo: [],
     colour: {
       headerIsActive: true,
       bodyIsActive: false
     },
-    headerColour: '#000',
-    bodyColour: '',
+    headerColour: "#000",
+    bodyColour: "",
     modal: {
       modalTodoIsActive: false,
       modalColourIsActive: false
     }
   };
-  
+
+  handleChangeTodoText = event => {
+    this.setState({ todoText: event.target.value });
+  };
+  handleChangeTodoDate = event => {
+    this.setState({ todoDate: event.target.value });
+  };
+  handleChangeTodoTime = event => {
+    this.setState({ todoTime: event.target.value });
+  };
+
+  handleOnSubmit = e => {
+    const todoCopy = [...this.state.todo];
+    const id = Math.random();
+    const isDone = false;
+    // todo display date
+    const dateConfig = { weekday: "long", month: "long", day: "numeric" };
+    const doneDeadlineDate = new Date(this.state.todoDate).toLocaleDateString(
+      "en-US",
+      dateConfig
+    );
+
+    const todoItem = {
+      id: id,
+      isDone: isDone,
+      content: this.state.todoText,
+      date: doneDeadlineDate,
+      // date: this.state.todoDate,
+      time: this.state.todoTime
+    };
+    todoCopy.push(todoItem);
+    this.setState({ todo: todoCopy });
+    e.preventDefault();
+  };
+
   handleColourHead = () => {
-    let colourCopy = {...this.state.colour};
+    let colourCopy = { ...this.state.colour };
     colourCopy.headerIsActive = true;
     colourCopy.bodyIsActive = false;
-    this.setState({colour: colourCopy})
+    this.setState({ colour: colourCopy });
   };
 
   handleColourBody = () => {
-    let colourCopy = {...this.state.colour};
+    let colourCopy = { ...this.state.colour };
     colourCopy.headerIsActive = false;
     colourCopy.bodyIsActive = true;
-    this.setState({colour: colourCopy})
-
+    this.setState({ colour: colourCopy });
   };
 
   setHeaderColour = () => {
     let headerColourCopy = this.state.headerColour;
-    headerColourCopy = ''
-    this.setState({headerColour: headerColourCopy})
-  }
+    headerColourCopy = "";
+    this.setState({ headerColour: headerColourCopy });
+  };
 
+  handleDeleteTodo = e => {
+    console.log("id: " + e.target.id);
+    console.log(typeof e.target.id);
+    console.log(e.currentTarget);
+
+    this.setState({
+      todo: this.state.todo.filter(item => item.id.toString() !== e.target.id)
+    });
+  };
 
   /* handleColourArea = (e) => {
     let colourCopy = {...this.state.colour};
@@ -67,52 +110,91 @@ class App extends Component {
     }
   };
 
-
   handleModalColour = () => {
     let modalColourCopy = { ...this.state.modal };
     if (modalColourCopy.modalColourIsActive) {
       modalColourCopy.modalColourIsActive = !modalColourCopy.modalColourIsActive;
-      this.setState({modal: modalColourCopy});
+      this.setState({ modal: modalColourCopy });
     } else {
       modalColourCopy.modalColourIsActive = !modalColourCopy.modalColourIsActive;
-      this.setState({modal: modalColourCopy});
+      this.setState({ modal: modalColourCopy });
     }
   };
 
+  handleToggleTodo = e => {
+    console.log(this.state.todo);
+    console.log(e.target.id);
+    const todoCopy = [...this.state.todo];
+    const pick = todoCopy[1]
+    const idOfItemToToggle = todoCopy.findIndex(
+      item => item.id.toString() === e.target.id
+    );
+    console.log(idOfItemToToggle);
+    todoCopy[idOfItemToToggle].isDone = !todoCopy[idOfItemToToggle].isDone;
+
+    this.setState({todo: todoCopy})
+
+    // const todoToUpdate = this.state.todo.filter(
+    //   item => item.id.toString() === e.target.id
+    // );
+    // console.log("todoUpdate: " + todoToUpdate[0].id);
+    // console.log(todoToUpdate);
+    // todoToUpdate[0].isDone = !todoToUpdate[0].isDone;
+    //
+    // const remainingTodoItems = this.state.todo.filter(
+    //   item => item.id.toString() !== e.target.id
+    // );
+    //
+    // this.setState({ todo: [...remainingTodoItems, todoToUpdate[0]] });
+  };
 
   render() {
     const displayTodoInput = (
-    <Modal>
-      <TodoInput 
-      handleModalTodo={this.handleModalTodo} // For the Modal (TodoInput) close button
-      />
-      </Modal>)
+      <Modal>
+        <TodoInput
+          handleModalTodo={this.handleModalTodo} // For the Modal (TodoInput) close button
+          todoContent={this.state.todoText}
+          handleChangeTodoText={e => this.handleChangeTodoText(e)}
+          todoDate={this.state.todoDate}
+          handleChangeTodoDate={e => this.handleChangeTodoDate(e)}
+          todoTime={this.state.todoTime}
+          handleChangeTodoTime={e => this.handleChangeTodoTime(e)}
+          handleOnSubmit={e => this.handleOnSubmit(e)}
+        />
+      </Modal>
+    );
 
     const displayColorPicker = (
-    <Modal>
-      <ColorPicker 
-      headColourProp={this.state.colour.headerIsActive}
-      bodyColourProp={this.state.colour.bodyIsActive}
-      defaultHeaderColor={this.state.headerColour}
-      bodyColourChange={this.handleColourBody}  // Makes the BODY colour options show
-      headColourChange={this.handleColourHead} // Makes the HEAD colour options show
-      handleModalColour={this.handleModalColour}  // For the Modal (ColorPicker) close button
-      /* handleColourArea={this.handleColourArea} */
-      />
-      </Modal>)
-    let displayModal =
-    this.state.modal.modalColourIsActive ? displayColorPicker  
-    : this.state.modal.modalTodoIsActive ? displayTodoInput
-    : null
+      <Modal>
+        <ColorPicker
+          headColourProp={this.state.colour.headerIsActive}
+          bodyColourProp={this.state.colour.bodyIsActive}
+          defaultHeaderColor={this.state.headerColour}
+          bodyColourChange={this.handleColourBody} // Makes the BODY colour options show
+          headColourChange={this.handleColourHead} // Makes the HEAD colour options show
+          handleModalColour={this.handleModalColour} // For the Modal (ColorPicker) close button
+          /* handleColourArea={this.handleColourArea} */
+        />
+      </Modal>
+    );
+    let displayModal = this.state.modal.modalColourIsActive
+      ? displayColorPicker
+      : this.state.modal.modalTodoIsActive
+      ? displayTodoInput
+      : null;
 
-    
     return (
       <>
-        <Navbar 
-        setHeaderColour={this.setHeaderColour} // To set the default colour of the header
-        defaultHeaderColor={this.state.headerColour}
-        handleModalTodo={this.handleModalTodo} // For the Modal (TodoInput) to show
-        handleModalColour={this.handleModalColour} // For the Modal (ColorPicker) to show
+        <Navbar
+          setHeaderColour={this.setHeaderColour} // To set the default colour of the header
+          defaultHeaderColor={this.state.headerColour}
+          handleModalTodo={this.handleModalTodo} // For the Modal (TodoInput) to show
+          handleModalColour={this.handleModalColour} // For the Modal (ColorPicker) to show
+        />
+        <Layout
+          todoItems={this.state.todo}
+          deleteTodo={this.handleDeleteTodo}
+          toggleTodo={this.handleToggleTodo}
         />
         {displayModal}
       </>
