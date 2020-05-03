@@ -9,7 +9,7 @@ const ColorPicker = props => {
    let displayColourBoxes =
    props.headColourProp ? <HeadColourBox setHeaderColour={props.setHeaderColour} />
    : props.bodyColourProp ? <BodyColourBox setHeaderColour={props.setHeaderColour} />
-   : null
+   : null;
 
     return (
     <>

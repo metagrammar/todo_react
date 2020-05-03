@@ -7,16 +7,16 @@ import Layout from "./components/Layout/Layout";
 
 class App extends Component {
   state = {
-    todoText: '',
-    todoDate: '',
-    todoTime: '',
+    todoText: "",
+    todoDate: "",
+    todoTime: "",
     todo: [],
     colour: {
       headerIsActive: true,
       bodyIsActive: false
     },
-    headerColour: 'GradDefault',
-    bodyColour: '',
+    headerColour: "GradDefault",
+    bodyColour: "",
     modal: {
       modalTodoIsActive: false,
       modalColourIsActive: false
@@ -53,15 +53,16 @@ class App extends Component {
       time: this.state.todoTime
     };
 
-    if(this.state.todoText !== ''){ // Tony: if statement to alert empty text
-    todoCopy.push(todoItem);
-    this.setState({ todo: todoCopy });
+    if (this.state.todoText !== "") {
+      // Tony: if statement to alert empty text
+      todoCopy.push(todoItem);
+      this.setState({ todo: todoCopy });
 
-    this.handleModalTodo(); // Tony: closes the TodoInput Modal page on submit
+      this.handleModalTodo(); // Tony: closes the TodoInput Modal page on submit
     } else {
-      alert('Please write what you would like to do')
+      alert("Please write what you would like to do");
     }
-    this.setState(prev => prev.todoText = '')
+    this.setState(prev => (prev.todoText = ""));
     e.preventDefault();
   };
 
@@ -80,8 +81,9 @@ class App extends Component {
   };
 
   setHeaderColour = e => {
-    alert(`I was clicked`)
-    this.setState({ headerColour: e.target.name });
+    alert(`I was clicked`);
+    console.log(e.target.id);
+    this.setState({ headerColour: e.target.id });
   };
 
   handleDeleteTodo = id => {
@@ -128,13 +130,11 @@ class App extends Component {
   handleToggleTodo = id => {
     console.log(id);
     const todoCopy = [...this.state.todo];
-    const idOfItemToToggle = todoCopy.findIndex(
-      item => item.id === id
-    );
+    const idOfItemToToggle = todoCopy.findIndex(item => item.id === id);
     console.log(idOfItemToToggle);
     todoCopy[idOfItemToToggle].isDone = !todoCopy[idOfItemToToggle].isDone;
 
-    this.setState({todo: todoCopy})
+    this.setState({ todo: todoCopy });
 
     // const todoToUpdate = this.state.todo.filter(
     //   item => item.id.toString() === e.target.id
