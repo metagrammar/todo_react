@@ -25,14 +25,20 @@ const TodoItem = props => {
         <div
           className={classes.trashIcon}
           style={{ justifySelf: "end" }}
-          id={props.idTodo}
+
           onClick={() => props.deleteTodo(props.idTodo)}
         >
           <Delete style={{ fontSize: 12 }}/>
         </div>
       </div>
-      <label className={classes.checkboxContainer}>
-        <div className={classes.todoText}>{props.todoContent}</div>
+      <label 
+        className={classes.checkboxContainer}
+        >
+        <div className={classes.todoText}
+         // Tony update try
+
+         onClick={() => props.updateTodo(props.idTodo)}
+        >{props.todoContent}</div>
         <input type="checkbox"/>
         <span className={todoCheck} onClick={props.toggleTodo}/>
       </label>

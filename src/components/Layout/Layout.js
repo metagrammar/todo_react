@@ -4,7 +4,6 @@ import classes from "./Layout.module.css";
 
 const Layout = props => {
   let bodyBkg = props.defaultBodyColor
-  // const {defaultBodyColor} = props
 
   /* console.log('body bkg colour')
   console.log(defaultBodyColor) */
@@ -18,6 +17,8 @@ const Layout = props => {
       idTodo={item.id}
       toggleTodo={() => props.toggleTodo(item.id)}
       isDoneTodo={item.isDone}
+
+      updateTodo={props.updateTodo}
     />
   ));
   return (

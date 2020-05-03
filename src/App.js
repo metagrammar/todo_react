@@ -34,6 +34,7 @@ class App extends Component {
   };
 
   handleOnSubmit = e => {
+    
     const todoCopy = [...this.state.todo];
     const id = Math.random();
     const isDone = false;
@@ -51,7 +52,9 @@ class App extends Component {
       date: doneDeadlineDate,
       // date: this.state.todoDate,
       time: this.state.todoTime
-    };
+    }
+
+    console.log('Date format ' + doneDeadlineDate)
 
     if(this.state.todoText !== ''){ // Tony: if statement to alert empty text
     todoCopy.push(todoItem);
@@ -62,8 +65,12 @@ class App extends Component {
       alert('Please write what you would like to do')
     }
     this.setState(prev => prev.todoText = '')
+    this.setState(prev => prev.todoDate = '')
+    this.setState(prev => prev.todoTime = '')
     e.preventDefault();
   };
+
+
 
   handleColourHead = () => {
     let colourCopy = { ...this.state.colour };
@@ -153,6 +160,13 @@ class App extends Component {
     // this.setState({ todo: [...remainingTodoItems, todoToUpdate[0]] });
   };
 
+  handleUpdateTodoItem = id => {
+    console.log(id);
+    this.handleModalTodo();
+    //let openModal = 
+    //this.setState(modal.modalTodoIsActive)
+  }
+
   render() {
     const displayTodoInput = (
       <Modal>
@@ -201,6 +215,7 @@ class App extends Component {
         <Layout
           todoItems={this.state.todo}
           deleteTodo={this.handleDeleteTodo}
+          updateTodo={this.handleUpdateTodoItem}
           toggleTodo={this.handleToggleTodo}
           defaultBodyColor={this.state.bodyColour} // To state the default colour of the body
         />
