@@ -9,8 +9,8 @@ const TodoInput = props => {
   const year = yesterday.getFullYear();
 
   const dateFormat = [day, month, year].join("-");
-  console.log("dataFormat");
-  console.log(dateFormat);
+  // console.log("dataFormat");
+  // console.log(dateFormat);
 
   console.log(day, month, year);
   console.log(typeof year);

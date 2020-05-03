@@ -54,20 +54,23 @@ class App extends Component {
       time: this.state.todoTime
     }
 
-    console.log('Date format ' + doneDeadlineDate)
+    console.log('Date format: ' + doneDeadlineDate)
 
     if(this.state.todoText !== ''){ // Tony: if statement to alert empty text
+    e.preventDefault();
     todoCopy.push(todoItem);
     this.setState({ todo: todoCopy });
 
     this.handleModalTodo(); // Tony: closes the TodoInput Modal page on submit
     } else {
+      e.preventDefault();
       alert('Please write what you would like to do')
+      return false; // Tony: necessary to keep the possibly set date and time from clearing after the alert.
     }
-    this.setState(prev => prev.todoText = '')
-    this.setState(prev => prev.todoDate = '')
-    this.setState(prev => prev.todoTime = '')
-    e.preventDefault();
+    this.setState(prev => prev.todoText = '') // To prevent the text content from being kept after saving
+    this.setState(prev => prev.todoDate = '') // To prevent the date from being kept after saving
+    this.setState(prev => prev.todoTime = '') // To prevent the time from being kept after saving
+
   };
 
 
@@ -95,7 +98,7 @@ class App extends Component {
   };
 
   handleDeleteTodo = id => {
-    console.log(id);
+    // console.log(id);
     this.setState({
       todo: this.state.todo.filter(item => item.id !== id)
     });
@@ -121,6 +124,8 @@ class App extends Component {
     } else {
       modalCopy.modalTodoIsActive = !modalCopy.modalTodoIsActive;
       this.setState({ modal: modalCopy });
+      this.setState(prev => prev.todoDate = '') // To prevent the date from being kept on manually closing the modal
+      this.setState(prev => prev.todoTime = '') // To prevent the time from being kept on manually closing the modal
     }
   };
 
@@ -163,6 +168,7 @@ class App extends Component {
   handleUpdateTodoItem = id => {
     console.log(id);
     this.handleModalTodo();
+    console.log(this.todo)
     //let openModal = 
     //this.setState(modal.modalTodoIsActive)
   }

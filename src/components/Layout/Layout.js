@@ -12,7 +12,7 @@ const Layout = props => {
       key={item.id}
       todoContent={item.content}
       time={item.time}
-      date={props.date}
+      date={item.date}
       deleteTodo={props.deleteTodo}
       idTodo={item.id}
       toggleTodo={() => props.toggleTodo(item.id)}
