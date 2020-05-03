@@ -12,7 +12,7 @@ const ColorPicker = props => {
    : null
 
    let headBkg = props.defaultHeaderColor
-   let bodyBkg = props.setBodyColour
+   let bodyBkg = props.defaultBodyColor
     return (
     <>
       <div className={classes.ModalHeader}>
@@ -54,4 +54,4 @@ const ColorPicker = props => {
   );
 };
 
-export default ColorPicker;
+export default React.memo(ColorPicker);

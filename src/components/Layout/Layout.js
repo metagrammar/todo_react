@@ -3,7 +3,11 @@ import TodoItem from "../TodoItem/TodoItem";
 import classes from "./Layout.module.css";
 
 const Layout = props => {
-  let bodyBkg = props.defaultBodyColour
+  let bodyBkg = props.defaultBodyColor
+  // const {defaultBodyColor} = props
+
+  /* console.log('body bkg colour')
+  console.log(defaultBodyColor) */
   const todoItems = props.todoItems.map(item => (
     <TodoItem
       key={item.id}
