@@ -7,20 +7,22 @@ import Layout from "./components/Layout/Layout";
 
 class App extends Component {
   state = {
-    todoText: '',
-    todoDate: '',
-    todoTime: '',
+    todoText: "",
+    todoDate: "",
+    todoTime: "",
     todo: [],
     colour: {
       headerIsActive: true,
       bodyIsActive: false
     },
-    headerColour: 'GradDefault',
-    bodyColour: 'BodyDefault',
+    headerColour: "GradDefault",
+    bodyColour: "BodyDefault",
     modal: {
       modalTodoIsActive: false,
       modalColourIsActive: false
-    }
+    },
+    isUpdate: false,
+    idToUpdate: null
   };
 
   handleChangeTodoText = event => {
@@ -33,8 +35,13 @@ class App extends Component {
     this.setState({ todoTime: event.target.value });
   };
 
-  handleOnSubmit = e => {
-    
+  submitFormOnUpdate = e => {
+    this.setState({ isUpdate: !this.state.isUpdate });
+
+    e.preventDefault();
+  };
+
+  submitFormOnCreate = event => {
     const todoCopy = [...this.state.todo];
     const id = Math.random();
     const isDone = false;
@@ -52,25 +59,63 @@ class App extends Component {
       date: doneDeadlineDate,
       // date: this.state.todoDate,
       time: this.state.todoTime
-    }
+    };
 
-    console.log('Date format ' + doneDeadlineDate)
+    console.log("Date format " + doneDeadlineDate);
 
-    if(this.state.todoText !== ''){ // Tony: if statement to alert empty text
-    todoCopy.push(todoItem);
-    this.setState({ todo: todoCopy });
+    if (this.state.todoText !== "") {
+      // Tony: if statement to alert empty text
+      todoCopy.push(todoItem);
+      this.setState({ todo: todoCopy });
 
-    this.handleModalTodo(); // Tony: closes the TodoInput Modal page on submit
+      this.handleModalTodo(); // Tony: closes the TodoInput Modal page on submit
     } else {
-      alert('Please write what you would like to do')
+      alert("Please write what you would like to do");
     }
-    this.setState(prev => prev.todoText = '')
-    this.setState(prev => prev.todoDate = '')
-    this.setState(prev => prev.todoTime = '')
-    e.preventDefault();
+    this.setState(prev => (prev.todoText = ""));
+    this.setState(prev => (prev.todoDate = ""));
+    this.setState(prev => (prev.todoTime = ""));
+    // event.preventDefault();
   };
 
+  todoFactory = (id) => {
 
+
+    const toUpdate = [...this.state.todo];
+
+    const idOfItemToUpdate = toUpdate.findIndex(item => item.id === id);
+    // console.log("in todoFactory")
+    // console.log("toUpdate")
+    // console.log(toUpdate)
+    // console.log("idOfItem")
+    // console.log(idOfItemToUpdate)
+
+    toUpdate[idOfItemToUpdate].content = this.state.todoText;
+    toUpdate[idOfItemToUpdate].date = this.state.todoDate;
+    toUpdate[idOfItemToUpdate].time = this.state.todoTime;
+
+      this.setState({ todo: toUpdate });
+
+      this.handleModalTodo(); // Tony: closes the TodoInput Modal page on submit
+
+    // event.preventDefault();
+  };
+
+  handleOnSubmit = e => {
+    if (this.state.isUpdate) {
+      console.log("this.submitFormOnUpdate(e, idTodo)");
+      this.submitFormOnUpdate(e);
+      this.todoFactory(this.state.idToUpdate);
+      e.preventDefault();
+    } else {
+      console.log("this.submitFormOnCreate(e, null)");
+      this.submitFormOnCreate(e);
+    }
+
+    this.setState(prev => (prev.todoText = ""));
+    this.setState(prev => (prev.todoDate = ""));
+    this.setState(prev => (prev.todoTime = ""));
+  };
 
   handleColourHead = () => {
     let colourCopy = { ...this.state.colour };
@@ -101,18 +146,6 @@ class App extends Component {
     });
   };
 
-  /* handleColourArea = (e) => {
-    let colourCopy = {...this.state.colour};
-    if (e.target.id === "colourYourHeader"){
-    colourCopy.headerIsActive = true;
-    colourCopy.bodyIsActive = false;
-    } else if (e.target.id === "colourYourBody"){
-      colourCopy.headerIsActive = false;
-      colourCopy.bodyIsActive = true;    
-    };
-    this.setState({colour: colourCopy})
-  }; */
-
   handleModalTodo = () => {
     let modalCopy = { ...this.state.modal }; // {modalTodoIsActive: false, modalColourIsActive: false}
     if (modalCopy.modalTodoIsActive) {
@@ -138,13 +171,11 @@ class App extends Component {
   handleToggleTodo = id => {
     console.log(id);
     const todoCopy = [...this.state.todo];
-    const idOfItemToToggle = todoCopy.findIndex(
-      item => item.id === id
-    );
+    const idOfItemToToggle = todoCopy.findIndex(item => item.id === id);
     console.log(idOfItemToToggle);
     todoCopy[idOfItemToToggle].isDone = !todoCopy[idOfItemToToggle].isDone;
 
-    this.setState({todo: todoCopy})
+    this.setState({ todo: todoCopy });
 
     // const todoToUpdate = this.state.todo.filter(
     //   item => item.id.toString() === e.target.id
@@ -163,9 +194,33 @@ class App extends Component {
   handleUpdateTodoItem = id => {
     console.log(id);
     this.handleModalTodo();
-    //let openModal = 
-    //this.setState(modal.modalTodoIsActive)
-  }
+    const toUpdate = this.state.todo.filter(item => item.id === id);
+    console.log(toUpdate);
+    const todoText = toUpdate[0].content;
+    const todoDate = toUpdate[0].date;
+    const todoTime = toUpdate[0].time;
+
+    this.setState({ todoText: todoText });
+    this.setState({ todoDate: todoDate });
+    this.setState({ todoTime: todoTime });
+
+    // this.setState(prev => (prev.todoText = todoText));
+    // this.setState(prev => (prev.todoDate = todoDate));
+    // this.setState(prev => (prev.todoTime = todoTime));
+    // this.todoFactory(id);
+
+    // let modalCopy = { ...this.state.modal }; // {modalTodoIsActive: false, modalColourIsActive: false}
+    // if (modalCopy.modalTodoIsActive) {
+    //   modalCopy.modalTodoIsActive = !modalCopy.modalTodoIsActive;
+    //   this.setState({ modal: modalCopy });
+    // } else {
+    //   modalCopy.modalTodoIsActive = !modalCopy.modalTodoIsActive;
+    //   this.setState({ modal: modalCopy });
+    // }
+    //todo: FP correct?
+    this.setState({ isUpdate: !this.state.isUpdate });
+    this.setState({idToUpdate: id})
+  };
 
   render() {
     const displayTodoInput = (
