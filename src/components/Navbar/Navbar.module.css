@@ -9,24 +9,8 @@
   margin-top: 0;
   position: fixed;
   top: 0;
-  /*background: #c471ed;  fallback for old browsers */
-  /* background: -webkit-linear-gradient(
-    to right,
-    #c471ed,
-    #f64f59
-  ); 
-  background: linear-gradient(
-    to right,
-    #c471ed,
-    #f64f59
-  );  */
   z-index: 1;
 }
-
-.NavbarBackground {
-  background: #c471ed;
-}
-
 
 .NavbarRight {
   display: grid;
@@ -119,4 +103,35 @@ button.AddTodo span.MaterialIcons {
 .SettingsBtn .material-icons {
   font-size: 1.25rem;
   line-height: 2em;
+}
+
+
+.GradDefault {
+  background: #373b44; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #c471ed, #f64f59);
+  background: linear-gradient(to right, #c471ed, #f64f59);
+}
+
+.GradBlue {
+  background: #373b44; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #4286f4, #373b44);
+  background: linear-gradient(to right, #4286f4, #373b44);
+}
+
+.GradGreen {
+  background: #11998e; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #38ef7d, #11998e);
+  background: linear-gradient(to right, #38ef7d, #11998e);
+}
+
+.BodyDefault {
+  background: #f5f5f5;
+}
+
+.BodyDark {
+  background: #373b44;
+}
+
+.BodyGreen {
+  background: #11998e;
 }

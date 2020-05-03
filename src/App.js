@@ -7,16 +7,16 @@ import Layout from "./components/Layout/Layout";
 
 class App extends Component {
   state = {
-    todoText: "",
-    todoDate: "",
-    todoTime: "",
+    todoText: '',
+    todoDate: '',
+    todoTime: '',
     todo: [],
     colour: {
       headerIsActive: true,
       bodyIsActive: false
     },
-    headerColour: "#000",
-    bodyColour: "",
+    headerColour: 'GradDefault',
+    bodyColour: '',
     modal: {
       modalTodoIsActive: false,
       modalColourIsActive: false
@@ -79,10 +79,9 @@ class App extends Component {
     this.setState({ colour: colourCopy });
   };
 
-  setHeaderColour = () => {
-    let headerColourCopy = this.state.headerColour;
-    headerColourCopy = "";
-    this.setState({ headerColour: headerColourCopy });
+  setHeaderColour = e => {
+    alert(`I was clicked`)
+    this.setState({ headerColour: e.target.name });
   };
 
   handleDeleteTodo = id => {
@@ -173,6 +172,7 @@ class App extends Component {
           headColourProp={this.state.colour.headerIsActive}
           bodyColourProp={this.state.colour.bodyIsActive}
           defaultHeaderColor={this.state.headerColour}
+          setHeaderColour={this.setHeaderColour} // To set the default colour of the header
           bodyColourChange={this.handleColourBody} // Makes the BODY colour options show
           headColourChange={this.handleColourHead} // Makes the HEAD colour options show
           handleModalColour={this.handleModalColour} // For the Modal (ColorPicker) close button
@@ -189,8 +189,9 @@ class App extends Component {
     return (
       <>
         <Navbar
-          setHeaderColour={this.setHeaderColour} // To set the default colour of the header
           defaultHeaderColor={this.state.headerColour}
+          setGradBlue={this.state.headerColour}
+          setHeaderColour={this.setHeaderColour} // To set the default colour of the header
           handleModalTodo={this.handleModalTodo} // For the Modal (TodoInput) to show
           handleModalColour={this.handleModalColour} // For the Modal (ColorPicker) to show
         />

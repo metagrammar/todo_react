@@ -5,9 +5,10 @@ import HeadColourBox from "./ColourBox/HeadColourBox"
 import BodyColourBox from "./ColourBox/BodyColourBox"
 
 const ColorPicker = props => {
+
    let displayColourBoxes =
-   props.headColourProp ? <HeadColourBox />
-   : props.bodyColourProp ? <BodyColourBox />
+   props.headColourProp ? <HeadColourBox setHeaderColour={props.setHeaderColour} />
+   : props.bodyColourProp ? <BodyColourBox setHeaderColour={props.setHeaderColour} />
    : null
 
     return (
