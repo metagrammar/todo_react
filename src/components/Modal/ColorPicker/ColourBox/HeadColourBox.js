@@ -2,23 +2,23 @@ import React from "react";
 import classes from "../ColorPicker.module.css";
 
 const HeadColourBox = props => {
-  let setHeadBkg = props.setHeaderColour
+  // let setHeadBkg = props.setHeaderColour
   return (
     <>
         <div className={classes.HeadColorOptions} >
           <p>Select a colour for the header</p>
           <div
             className={[classes.ColorBox, classes.GradDefault].join(" ")}
-            name={'GradDefault'}
-            onClick={(e) => props.setHeaderColour(e.target.name)}
+            id='GradDefault'
+            onClick={(e) => props.setHeaderColour(e)}
           />
 
           <div className={[classes.ColorBox, classes.GradBlue].join(" ")}
-          name={'GradBlue'}
-          onClick={(e) => setHeadBkg(e.currentTarget.name)} />
+          id='GradBlue'
+          onClick={props.setHeaderColour} />
 
           <div className={[classes.ColorBox, classes.GradGreen].join(" ")} 
-          name={'GradGreen'}
+          id='GradGreen'
           onClick={props.setHeaderColour} />
 
         </div>

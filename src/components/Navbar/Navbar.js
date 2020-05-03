@@ -4,14 +4,11 @@ import Palette from '@material-ui/icons/Palette';
 import Add from '@material-ui/icons/Add';
 
 const Navbar = props => {
-  let changeHeadBkg = props.setHeaderColour
   let headBkg = props.defaultHeaderColor
-  console.log(headBkg)
-  console.log(classes)
   return (
     //style={{background: headBkg}}
     
-    <div className={[classes.Navigation, classes[headBkg], classes[changeHeadBkg]].join(" ")}  >
+    <div className={[classes.Navigation, classes[headBkg]].join(" ")}  >
       <div className={classes.NavbarCenter}>
         <h1>
           <span>do</span> / me

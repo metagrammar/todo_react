@@ -5,8 +5,9 @@
   grid-column-gap: 0px;
   grid-row-gap: 1em;
   width: 100%;
+  height: calc(100vh - 80px);
   margin-top: 5em;
-  background-color: #f5f5f5;
+  /* background: #373b44; */
 }
 
 .ContentGridder {
@@ -24,4 +25,16 @@
   grid-template-rows: 1fr;
   grid-gap: 2em 2em;
   padding-top: 1.5em;
+}
+
+.BodyDefault {
+  background: #f5f5f5;
+}
+
+.BodyDark {
+  background: #373b44;
+}
+
+.BodyGreen {
+  background: #11998e;
 }

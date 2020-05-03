@@ -16,7 +16,7 @@ class App extends Component {
       bodyIsActive: false
     },
     headerColour: 'GradDefault',
-    bodyColour: '',
+    bodyColour: 'BodyDefault',
     modal: {
       modalTodoIsActive: false,
       modalColourIsActive: false
@@ -80,8 +80,11 @@ class App extends Component {
   };
 
   setHeaderColour = e => {
-    alert(`I was clicked`)
-    this.setState({ headerColour: e.target.name });
+    this.setState({ headerColour: e.target.id });
+  };
+
+  setBodyColour = e => {
+    this.setState({ bodyColour: e.target.id });
   };
 
   handleDeleteTodo = id => {
@@ -171,7 +174,9 @@ class App extends Component {
         <ColorPicker
           headColourProp={this.state.colour.headerIsActive}
           bodyColourProp={this.state.colour.bodyIsActive}
-          defaultHeaderColor={this.state.headerColour}
+          defaultHeaderColor={this.state.headerColour} // To state the default colour of the header
+          defaultBodyColor={this.state.bodyColour} // To state the default colour of the body
+          setBodyColour={this.setBodyColour} // To set the default colour of the header
           setHeaderColour={this.setHeaderColour} // To set the default colour of the header
           bodyColourChange={this.handleColourBody} // Makes the BODY colour options show
           headColourChange={this.handleColourHead} // Makes the HEAD colour options show
@@ -189,9 +194,7 @@ class App extends Component {
     return (
       <>
         <Navbar
-          defaultHeaderColor={this.state.headerColour}
-          setGradBlue={this.state.headerColour}
-          setHeaderColour={this.setHeaderColour} // To set the default colour of the header
+          defaultHeaderColor={this.state.headerColour} // To state the default colour of the header
           handleModalTodo={this.handleModalTodo} // For the Modal (TodoInput) to show
           handleModalColour={this.handleModalColour} // For the Modal (ColorPicker) to show
         />
@@ -199,6 +202,7 @@ class App extends Component {
           todoItems={this.state.todo}
           deleteTodo={this.handleDeleteTodo}
           toggleTodo={this.handleToggleTodo}
+          defaultBodyColor={this.state.bodyColour} // To state the default colour of the body
         />
         {displayModal}
       </>
