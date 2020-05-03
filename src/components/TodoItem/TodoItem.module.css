@@ -31,6 +31,10 @@
   vertical-align: text-bottom;
 }
 
+.dateOnOff{
+  margin-right: 1em;
+}
+
 .trashIcon {
   cursor: pointer;
   justify-self: end;
