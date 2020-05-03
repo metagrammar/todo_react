@@ -15,11 +15,11 @@ const HeadColourBox = props => {
 
           <div className={[classes.ColorBox, classes.GradBlue].join(" ")}
           id='GradBlue'
-          onClick={(e) => props.setHeaderColour(e)} />
+          onClick={props.setHeaderColour} />
 
           <div className={[classes.ColorBox, classes.GradGreen].join(" ")} 
           id='GradGreen'
-          onClick={e => props.setHeaderColour(e)} />
+          onClick={props.setHeaderColour} />
 
         </div>
     </>

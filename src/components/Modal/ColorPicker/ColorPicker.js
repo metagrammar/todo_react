@@ -8,9 +8,11 @@ const ColorPicker = props => {
 
    let displayColourBoxes =
    props.headColourProp ? <HeadColourBox setHeaderColour={props.setHeaderColour} />
-   : props.bodyColourProp ? <BodyColourBox setHeaderColour={props.setHeaderColour} />
-   : null;
+   : props.bodyColourProp ? <BodyColourBox setBodyColour={props.setBodyColour} />
+   : null
 
+   let headBkg = props.defaultHeaderColor
+   let bodyBkg = props.defaultBodyColor
     return (
     <>
       <div className={classes.ModalHeader}>
@@ -39,8 +41,8 @@ const ColorPicker = props => {
         </div>
         <div className={classes.CenterElement}>
           <div className={classes.ColorSampler}>
-            <div className={classes.HeaderColor} id="colourYourHeader" onClick={props.headColourChange}>Make me yours</div>
-            <div className={classes.BodyColor} id="colourYourBody" onClick={props.bodyColourChange}>or me yours</div>
+            <div className={[classes.HeaderColor, classes[headBkg]].join(" ")} id="colourYourHeader" onClick={props.headColourChange}>Make me yours</div>
+            <div className={[classes.BodyColor, classes[bodyBkg]].join(" ")} id="colourYourBody" onClick={props.bodyColourChange}>or me yours</div>
           </div>
         </div>
       </div>
@@ -52,4 +54,4 @@ const ColorPicker = props => {
   );
 };
 
-export default ColorPicker;
+export default React.memo(ColorPicker);

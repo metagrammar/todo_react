@@ -7,16 +7,16 @@ import Layout from "./components/Layout/Layout";
 
 class App extends Component {
   state = {
-    todoText: "",
-    todoDate: "",
-    todoTime: "",
+    todoText: '',
+    todoDate: '',
+    todoTime: '',
     todo: [],
     colour: {
       headerIsActive: true,
       bodyIsActive: false
     },
-    headerColour: "GradDefault",
-    bodyColour: "",
+    headerColour: 'GradDefault',
+    bodyColour: 'BodyDefault',
     modal: {
       modalTodoIsActive: false,
       modalColourIsActive: false
@@ -53,16 +53,15 @@ class App extends Component {
       time: this.state.todoTime
     };
 
-    if (this.state.todoText !== "") {
-      // Tony: if statement to alert empty text
-      todoCopy.push(todoItem);
-      this.setState({ todo: todoCopy });
+    if(this.state.todoText !== ''){ // Tony: if statement to alert empty text
+    todoCopy.push(todoItem);
+    this.setState({ todo: todoCopy });
 
-      this.handleModalTodo(); // Tony: closes the TodoInput Modal page on submit
+    this.handleModalTodo(); // Tony: closes the TodoInput Modal page on submit
     } else {
-      alert("Please write what you would like to do");
+      alert('Please write what you would like to do')
     }
-    this.setState(prev => (prev.todoText = ""));
+    this.setState(prev => prev.todoText = '')
     e.preventDefault();
   };
 
@@ -81,9 +80,11 @@ class App extends Component {
   };
 
   setHeaderColour = e => {
-    alert(`I was clicked`);
-    console.log(e.target.id);
     this.setState({ headerColour: e.target.id });
+  };
+
+  setBodyColour = e => {
+    this.setState({ bodyColour: e.target.id });
   };
 
   handleDeleteTodo = id => {
@@ -130,11 +131,13 @@ class App extends Component {
   handleToggleTodo = id => {
     console.log(id);
     const todoCopy = [...this.state.todo];
-    const idOfItemToToggle = todoCopy.findIndex(item => item.id === id);
+    const idOfItemToToggle = todoCopy.findIndex(
+      item => item.id === id
+    );
     console.log(idOfItemToToggle);
     todoCopy[idOfItemToToggle].isDone = !todoCopy[idOfItemToToggle].isDone;
 
-    this.setState({ todo: todoCopy });
+    this.setState({todo: todoCopy})
 
     // const todoToUpdate = this.state.todo.filter(
     //   item => item.id.toString() === e.target.id
@@ -171,7 +174,9 @@ class App extends Component {
         <ColorPicker
           headColourProp={this.state.colour.headerIsActive}
           bodyColourProp={this.state.colour.bodyIsActive}
-          defaultHeaderColor={this.state.headerColour}
+          defaultHeaderColor={this.state.headerColour} // To state the default colour of the header
+          defaultBodyColor={this.state.bodyColour} // To state the default colour of the body
+          setBodyColour={this.setBodyColour} // To set the default colour of the header
           setHeaderColour={this.setHeaderColour} // To set the default colour of the header
           bodyColourChange={this.handleColourBody} // Makes the BODY colour options show
           headColourChange={this.handleColourHead} // Makes the HEAD colour options show
@@ -189,9 +194,7 @@ class App extends Component {
     return (
       <>
         <Navbar
-          defaultHeaderColor={this.state.headerColour}
-          setGradBlue={this.state.headerColour}
-          setHeaderColour={this.setHeaderColour} // To set the default colour of the header
+          defaultHeaderColor={this.state.headerColour} // To state the default colour of the header
           handleModalTodo={this.handleModalTodo} // For the Modal (TodoInput) to show
           handleModalColour={this.handleModalColour} // For the Modal (ColorPicker) to show
         />
@@ -199,6 +202,7 @@ class App extends Component {
           todoItems={this.state.todo}
           deleteTodo={this.handleDeleteTodo}
           toggleTodo={this.handleToggleTodo}
+          defaultBodyColor={this.state.bodyColour} // To state the default colour of the body
         />
         {displayModal}
       </>

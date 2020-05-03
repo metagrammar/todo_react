@@ -160,6 +160,7 @@ button.CloseModal {
 
 .BodyDark {
   background: #373b44;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .BodyGreen {

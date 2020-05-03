@@ -123,15 +123,3 @@ button.AddTodo span.MaterialIcons {
   background: -webkit-linear-gradient(to right, #38ef7d, #11998e);
   background: linear-gradient(to right, #38ef7d, #11998e);
 }
-
-.BodyDefault {
-  background: #f5f5f5;
-}
-
-.BodyDark {
-  background: #373b44;
-}
-
-.BodyGreen {
-  background: #11998e;
-}
